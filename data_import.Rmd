@@ -17,8 +17,29 @@ Read in the litters dataset
 litters_df = read_csv("./data/FAS_litters.csv")
 # ./ means starts here
 litters_df = janitor::clean_names(litters_df)
-# in the janitor package, call this function. This keeps from loading the whole janior package
+# in the janitor package, call this function. This keeps from loading the whole janitor package
 ```
 
 ## Take a look at the data
+
+Printing in the console
+```{r}
+litters_df
+```
+
+```{r}
+tail(litters_df)
+```
+
+```{r}
+skimr::skim(litters_df)
+# View() function is often used directly in the console
+```
+
+```{r}
+
+```
+
+
+
 
