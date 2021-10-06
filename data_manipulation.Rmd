@@ -81,6 +81,19 @@ filter(litters_df, group %in% c("Con7", "Mod8"))
 # filter out either con7 or mod8
 ```
 
+## `mutate`
+
+Create additional variables or modify variables
+
+```{r}
+mutate(
+  litters_df, 
+  wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower(group))
+# add a varaible and overwrite a variable by changing every letter to lower case
+```
+
+
 
 
 
