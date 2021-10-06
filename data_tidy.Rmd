@@ -7,3 +7,48 @@ output: github_document
 library(tidyverse)
 ```
 
+## `pivot_longer`
+
+load the PULSE data
+```{r}
+pulse_data = 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names()
+
+pulse_data
+```
+
+```{r}
+#columns too wide, need to make longer
+pulse_data_tidy = 
+  pulse_data %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  )
+pulse_data_tidy
+
+# 4 observations for id 1003 and each value assigned to different levels of visit.
+# bid_score_xx is too redundant. can use mutate, but in this case, add a line in the pivot_longer function: names_prefix
+```
+
+rewrite, combine, and extend (to add a mutate)
+```{r}
+pulse_data = 
+  haven::read_sas("./data/public_pulse_data.sas7bdat") %>% 
+  janitor::clean_names() %>% 
+  pivot_longer(
+    bdi_score_bl:bdi_score_12m,
+    names_to = "visit",
+    names_prefix = "bdi_score_",
+    values_to = "bdi"
+  ) %>% 
+  relocate(id,visit) %>% 
+  mutate(visit = recode(visit, "bl" = "00m"))
+# rewrite visit variable with everthing as bl to 00m
+pulse_data
+```
+
+
