@@ -4,6 +4,7 @@ output: github_document
 ---
 
 ```{r, setup}
+#use option+command+i to get the rcode chunk
 library(tidyverse)
 ```
 
@@ -103,6 +104,28 @@ arrange(litters_df,pups_born_alive, gd0_weight)
 # first sort by pups_alive, and within each level, sort gd0
 ```
 
+## `%>%`
+
+```{r}
+litters_df_raw = read_csv("./data/FAS_litters.csv")
+litters_df_clean = janitor::clean_names(litters_df_raw)
+litters_df_selected = select(litters_df_clean,-pups_survive)
+litters_mutated = mutate(litters_df_selected, wt_gain = gd18_weight - gd0_weight)
+litters_wo_missing = drop_na(litters_mutated, gd0_weight)
+# get rid of every observation where the gd0weight is missing
+```
+
+Use the Pipe operator instead
+
+```{r}
+# use shift+command+m to get the pipe line
+litters_df = 
+  read_csv("./data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>%
+  select(-pups_survive) %>% 
+  mutate(wt_gain = gd18_weight - gd0_weight) %>% 
+  drop_na(gd0_weight)
+```
 
 
 

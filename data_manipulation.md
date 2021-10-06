@@ -2,6 +2,7 @@ Data Manipulation
 ================
 
 ``` r
+#use option+command+i to get the rcode chunk
 library(tidyverse)
 ```
 
@@ -431,3 +432,51 @@ arrange(litters_df,pups_born_alive, gd0_weight)
 ``` r
 # first sort by pups_alive, and within each level, sort gd0
 ```
+
+## `%>%`
+
+``` r
+litters_df_raw = read_csv("./data/FAS_litters.csv")
+```
+
+    ## Rows: 49 Columns: 8
+
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+litters_df_clean = janitor::clean_names(litters_df_raw)
+litters_df_selected = select(litters_df_clean,-pups_survive)
+litters_mutated = mutate(litters_df_selected, wt_gain = gd18_weight - gd0_weight)
+litters_wo_missing = drop_na(litters_mutated, gd0_weight)
+# get rid of every observation where the gd0weight is missing
+```
+
+Use the Pipe operator instead
+
+``` r
+# use shift+command+m to get the pipe line
+litters_df = 
+  read_csv("./data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>%
+  select(-pups_survive) %>% 
+  mutate(wt_gain = gd18_weight - gd0_weight) %>% 
+  drop_na(gd0_weight)
+```
+
+    ## Rows: 49 Columns: 8
+
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
