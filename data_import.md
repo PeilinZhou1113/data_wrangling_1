@@ -228,3 +228,12 @@ pulse_df
     ##  9 10091  76.0 male              0             3             4             0
     ## 10 10092  74.2 female           10             2            11             6
     ## # … with 1,077 more rows
+
+## Comparison with Base R
+
+What about read.csv?
+
+``` r
+litters_df2 = read.csv("./data/FAS_litters.csv")
+# litters_df using read_csv output the data format better
+```

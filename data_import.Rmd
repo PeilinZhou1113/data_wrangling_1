@@ -64,6 +64,14 @@ pulse_df = janitor::clean_names(pulse_df)
 pulse_df
 ```
 
+## Comparison with Base R
+
+What about read.csv?
+```{r}
+litters_df2 = read.csv("./data/FAS_litters.csv")
+# litters_df using read_csv output the data format better
+```
+
 
 
 
