@@ -237,3 +237,11 @@ What about read.csv?
 litters_df2 = read.csv("./data/FAS_litters.csv")
 # litters_df using read_csv output the data format better
 ```
+
+## Exporting data
+
+Export the mlb sub-table
+
+``` r
+write_csv(mlb_df,"./data/mlb_subtable.csv")
+```
