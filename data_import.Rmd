@@ -5,7 +5,8 @@ output: github_document
 
 ```{r, setup}
 library(tidyverse)
-
+library(readxl)
+library(haven)
 ```
 
 ## Read in some data
@@ -15,7 +16,7 @@ library(tidyverse)
 Read in the litters dataset
 ```{r}
 litters_df = read_csv("./data/FAS_litters.csv")
-# ./ means starts here
+# ./ means starts from my project folder
 litters_df = janitor::clean_names(litters_df)
 # in the janitor package, call this function. This keeps from loading the whole janitor package
 ```
@@ -36,9 +37,35 @@ skimr::skim(litters_df)
 # View() function is often used directly in the console
 ```
 
+## Options to read_csv
 ```{r}
-
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
+# this command skips row 10 and omit all the column names
+litters_df = read_csv("./data/FAS_litters.csv", na = c(999,"","NA",","))
+# transform elements in the dataset as empty, 999, "," or NA to missing values
 ```
+
+## Read other file formats
+
+Read xlsx file
+
+```{r}
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
+mlb_df
+?read_excel
+```
+
+Read in SAS file
+
+```{r}
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
+pulse_df
+pulse_df = janitor::clean_names(pulse_df)
+pulse_df
+```
+
+
+
 
 
 
