@@ -53,6 +53,38 @@ relocate(litters_df,litter_number)
 #same as above operation
 ```
 
+##  `filter`
+operate on rows
+
+```{r}
+filter(litters_df,gd0_weight < 22)
+#filter out rows based on the specified condition
+```
+
+```{r}
+filter(litters_df, gd_of_birth == 20)
+```
+
+```{r}
+filter(litters_df, !(gd_of_birth == 20))
+# filter out everythin observations with the negate condition
+```
+
+```{r}
+filter(litters_df, gd0_weight >= 22, gd_of_birth == 20)
+# two more conditions
+```
+
+```{r}
+filter(litters_df, group == "Con7")
+filter(litters_df, group %in% c("Con7", "Mod8"))
+# filter out either con7 or mod8
+```
+
+
+
+
+
 
 
 
